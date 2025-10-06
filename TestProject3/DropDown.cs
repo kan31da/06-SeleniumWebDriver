@@ -15,11 +15,21 @@ namespace TestProject3
         [SetUp]
         public void SetUp()
         {
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.AddArgument("headless");
+
             // Create object of ChromeDriver
-            driver = new ChromeDriver();
+            driver = new ChromeDriver(chromeOptions);
 
             // Add implicit wait
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+        }
+
+        [TearDown]
+        public void TearDown(){
+                        // Quit the driver
+            driver.Quit();
+            driver.Dispose();
         }
 
         [Test]
@@ -81,9 +91,6 @@ namespace TestProject3
                     }
                 }
             }
-
-            // Quit the driver
-            driver.Quit();
         }
     }
 }
